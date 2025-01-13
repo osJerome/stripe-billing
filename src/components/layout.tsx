@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const title = "Offshorly";
   const navItems = [
     { label: "Tiers", to: "/" },
-    { label: "Manage", to: "/manage" },
+    // { label: "Manage", to: "/manage" },
   ];
 
   return (
