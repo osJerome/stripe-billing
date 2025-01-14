@@ -63,9 +63,7 @@ const SubscriptionTiers = () => {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-green-600 hover:bg-green-600/80">
-                    Select {tier.name}
-                  </Button>
+                  <Button className="w-full">Select {tier.name}</Button>
                 </CardFooter>
               </Card>
             ))}
@@ -113,10 +111,10 @@ const SubscriptionTiers = () => {
         <CardHeader>
           <CardTitle className="text-2xl">Optional Add-ons</CardTitle>
           <CardDescription className="w-full">
-            Enhance your ESG compliance journey with optional add-ons designed
-            to boost efficiency and provide deeper insights. Tailor your
-            experience by integrating advanced features to meet your
-            organization's specific needs.
+            Enhance your journey with optional add-ons designed to boost
+            efficiency and provide deeper insights. Tailor your experience by
+            integrating advanced features to meet your organization's specific
+            needs.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -131,12 +129,7 @@ const SubscriptionTiers = () => {
               </CardHeader>
               <CardContent>{addon.description}</CardContent>
               <CardFooter>
-                <Button
-                  className="bg-green-600 hover:bg-green-600/80"
-                  disabled={true}
-                >
-                  Select {addon.name}
-                </Button>
+                <Button disabled={true}>Select {addon.name}</Button>
               </CardFooter>
             </Card>
           ))}

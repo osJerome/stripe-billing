@@ -31,7 +31,7 @@ const invoices = [
   { date: "2023-03-01", amount: "$19.99", status: "Paid" },
 ];
 
-const ManageSubscription = () => {
+const SubscriptionManagement = () => {
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-center">
@@ -124,4 +124,4 @@ const ManageSubscription = () => {
   );
 };
 
-export default ManageSubscription;
+export default SubscriptionManagement;
