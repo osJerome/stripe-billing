@@ -9,7 +9,7 @@ type NavItem = {
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
-  navItems: NavItem[]
+  navItems?: NavItem[]
   logoSrc?: string
 }
 
@@ -19,7 +19,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
       <header
         ref={ref}
         className={cn(
-          "fixed top-0 left-0 w-full bg-white text-green-600 p-7 shadow-sm z-50",
+          "fixed top-0 left-0 w-full bg-white p-7 shadow-sm z-50",
           className
         )}
         {...props}
@@ -29,7 +29,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
           <HeaderNav navItems={navItems} />
         </nav>
       </header>
-      <div className="h-[76px]"></div>
+      <div className="h-[80px]"></div>
     </>
   )
 )
@@ -56,13 +56,13 @@ const HeaderLogo = React.forwardRef<HTMLAnchorElement, HeaderLogoProps>(
 HeaderLogo.displayName = "HeaderLogo"
 
 interface HeaderNavProps extends React.HTMLAttributes<HTMLUListElement> {
-  navItems: NavItem[]
+  navItems?: NavItem[]
 }
 
 const HeaderNav = React.forwardRef<HTMLUListElement, HeaderNavProps>(
   ({ className, navItems, ...props }, ref) => (
     <ul ref={ref} className={cn("flex space-x-4", className)} {...props}>
-      {navItems.map((item, index) => (
+      {navItems?.map((item, index) => (
         <HeaderNavItem key={index} to={item.to} label={item.label} />
       ))}
     </ul>

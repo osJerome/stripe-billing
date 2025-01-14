@@ -21,7 +21,7 @@ const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
     <footer
       ref={ref}
       className={cn(
-        "bg-white text-secondary-foreground pt-10 pb-5 font-semibold",
+        "bg-white text-secondary-foreground pt-10 pb-5 font-semibold shadow-sm",
         className
       )}
       {...props}
