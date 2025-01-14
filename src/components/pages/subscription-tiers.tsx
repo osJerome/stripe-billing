@@ -41,8 +41,8 @@ const SubscriptionTiers = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-            {tiers.map((tier) => (
-              <Card key={tier.name} className="flex flex-col mb-5">
+            {tiers.map((tier, index) => (
+              <Card key={index} className="flex flex-col mb-5">
                 <CardHeader>
                   <CardTitle>{tier.name}</CardTitle>
                   <CardDescription>
@@ -54,10 +54,13 @@ const SubscriptionTiers = () => {
                 <CardContent className="flex-grow">
                   <p className="mb-4">{tier.description}</p>
                   <ul className="space-y-3">
-                    {tier.features.map((feature) => (
-                      <div className="flex flex-row space-x-1">
+                    {tier.features.map((feature, featureIndex) => (
+                      <div
+                        className="flex flex-row space-x-1"
+                        key={`${index}-${featureIndex}`}
+                      >
                         <Check className="text-green-500" />
-                        <li key={feature}>{feature}</li>
+                        <li>{feature}</li>
                       </div>
                     ))}
                   </ul>
@@ -80,17 +83,17 @@ const SubscriptionTiers = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Feature</TableHead>
-                {tiers.map((tier) => (
-                  <TableHead key={tier.name}>{tier.name}</TableHead>
+                {tiers.map((tier, index) => (
+                  <TableHead key={index}>{tier.name}</TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {featureList.map((feature) => (
-                <TableRow key={feature}>
+              {featureList.map((feature, featureIndex) => (
+                <TableRow key={featureIndex}>
                   <TableCell>{feature}</TableCell>
-                  {tiers.map((tier) => (
-                    <TableCell key={`${tier.name}-${feature}`}>
+                  {tiers.map((tier, index) => (
+                    <TableCell key={`${index}-${featureIndex}`}>
                       {tier.features.includes(feature) ||
                       (feature === "Storage" &&
                         tier.features.some((f) => f.includes("storage"))) ? (
@@ -118,8 +121,8 @@ const SubscriptionTiers = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {addons.map((addon) => (
-            <Card key={addon.name} className="flex flex-col mb-5">
+          {addons.map((addon, index) => (
+            <Card key={index} className="flex flex-col mb-5">
               <CardHeader>
                 <CardTitle>{addon.name}</CardTitle>
                 <CardDescription>
