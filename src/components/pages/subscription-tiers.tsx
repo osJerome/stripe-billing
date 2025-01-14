@@ -22,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
 import { faqs, featureList, tiers, addons, currency } from "../data";
 
 const SubscriptionTiers = () => {
@@ -36,6 +37,7 @@ const SubscriptionTiers = () => {
             monthly paid plan tailored for small, medium, or large businesses,
             and customize further with optional add-ons to suit your needs.
           </CardDescription>
+          <Separator />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -47,6 +49,7 @@ const SubscriptionTiers = () => {
                     {currency}
                     {tier.price}/{tier.recurring}
                   </CardDescription>
+                  <Separator />
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="mb-4">{tier.description}</p>
