@@ -1,7 +1,7 @@
 export const tiers = [
   {
     name: "Starter",
-    price: "$0.00",
+    price: 0.00,
     recurring: "14-day free trial",
     features: [
       "Transcription Services",
@@ -14,14 +14,14 @@ export const tiers = [
   },
   {
     name: "Startups",
-    price: "$99.99",
+    price: 99.99,
     recurring: "month",
     features: ["Transcription Services", "Text Generation"],
     description: "For startups or small-sized companies.",
   },
   {
     name: "Advanced",
-    price: "$249.99",
+    price: 249.99,
     recurring: "month",
     features: [
       "Transcription Services",
@@ -33,7 +33,7 @@ export const tiers = [
   },
   {
     name: "Enterprise",
-    price: "$499.99",
+    price: 499.99,
     recurring: "month",
     features: [
       "Transcription Services",
@@ -104,8 +104,10 @@ export const faqs = [
 export const addons = [
   {
     name: "AI Chatbot",
-    price: "$199.99",
+    price: 199.99,
     description: "An AI Chatbot add-on tailored to your needs.",
     recurring: "month"
   },
 ];
+
+export const currency = "$";

@@ -17,7 +17,7 @@ const usageData = [
   { name: "Apr", usage: 2780 },
   { name: "May", usage: 1890 },
   { name: "Jun", usage: 2390 },
-  { name: "Jul", usage: null }, // Add placeholders for months without data
+  { name: "Jul", usage: null },
   { name: "Aug", usage: null },
   { name: "Sep", usage: null },
   { name: "Oct", usage: null },

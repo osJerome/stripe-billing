@@ -22,7 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs, featureList, tiers, addons } from "../data";
+import { faqs, featureList, tiers, addons, currency } from "../data";
 
 const SubscriptionTiers = () => {
   return (
@@ -44,6 +44,7 @@ const SubscriptionTiers = () => {
                 <CardHeader>
                   <CardTitle>{tier.name}</CardTitle>
                   <CardDescription>
+                    {currency}
                     {tier.price}/{tier.recurring}
                   </CardDescription>
                 </CardHeader>
@@ -121,6 +122,7 @@ const SubscriptionTiers = () => {
               <CardHeader>
                 <CardTitle>{addon.name}</CardTitle>
                 <CardDescription>
+                  {currency}
                   {addon.price}/{addon.recurring}
                 </CardDescription>
               </CardHeader>
