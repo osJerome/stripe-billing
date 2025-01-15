@@ -1,12 +1,13 @@
 import { Header } from "@/components/ui/header";
 import { Toaster } from "@/components/ui/toaster";
-// import { Footer } from "@/components/ui/footer";
+import { Footer } from "@/components/ui/footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const title = "Offshorly";
   const navItems = [
-    { label: "Tiers", to: "/subscription" },
-    { label: "Manage", to: "/manage" },
+    { label: "", to: "/" },
+    // { label: "Tiers", to: "/subscription" },
+    // { label: "Manage", to: "/manage" },
   ];
 
   return (
@@ -14,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Header title={title} navItems={navItems} />
       <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
       <Toaster />
-      {/* <Footer title={title} /> */}
+      <Footer title={title} />
     </div>
   );
 };

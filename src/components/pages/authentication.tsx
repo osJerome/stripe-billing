@@ -1,9 +1,6 @@
-import * as z from "zod";
-import useAuth from "../hooks/useAuth";
+import useAuth from "@/components/hooks/use-auth";
 import React, { useState } from "react";
-
 import { useForm } from "react-hook-form";
-import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,33 +21,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-const logInSchema = z.object({
-  email: z.string().min(1, "Email is required"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-const signUpSchema = z
-  .object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
-
-type LogInFormValues = z.infer<typeof logInSchema>;
-type SignUpFormValues = z.infer<typeof signUpSchema>;
+import {
+  LogInFormValues,
+  SignUpFormValues,
+  logInSchema,
+  signUpSchema,
+} from "@/lib/login-schema";
 
 const Authentication: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"login" | "signup">("login");
   const { logIn, signUp } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const logInForm = useForm<LogInFormValues>({
@@ -74,39 +54,18 @@ const Authentication: React.FC = () => {
   const onLogInSubmit = async (values: LogInFormValues) => {
     const result = await logIn(values.email, values.password);
     if (result) {
-      toast({
-        title: "Log In Successful.",
-        description: "Customer was successfully authenticated!",
-      });
       signUpForm.reset();
       logInForm.reset();
-
       navigate("/subscription");
-    } else {
-      toast({
-        title: "Log In Unsuccessful.",
-        description: "Customer could not authenticate!",
-        variant: "destructive",
-      });
     }
   };
 
   const onSignUpSubmit = async (values: SignUpFormValues) => {
     const result = await signUp(values.name, values.email, values.password);
     if (result) {
-      toast({
-        title: "Sign Up Successful.",
-        description: "Customer was successfully created!",
-      });
       signUpForm.reset();
       logInForm.reset();
       setActiveTab("login");
-    } else {
-      toast({
-        title: "Sign Up Unsuccessful.",
-        description: "Customer already exists!",
-        variant: "destructive",
-      });
     }
   };
 

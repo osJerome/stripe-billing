@@ -26,7 +26,7 @@ const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
       )}
       {...props}
     >
-      <div className="container mx-auto text-center text-green-600">
+      <div className="container mx-auto text-center">
         {`${title} © ${year} ${content}`}
       </div>
     </footer>
