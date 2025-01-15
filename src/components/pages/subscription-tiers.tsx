@@ -56,7 +56,7 @@ import {
   SubscriptionFormValues,
   subscriptionSchema,
 } from "@/lib/subscription-schema";
-import StripeCheckout from "@/components/stripe/stripe-checkout";
+// import StripeCheckout from "@/components/stripe/stripe-checkout";
 
 const SubscriptionTiers = () => {
   const navigate = useNavigate();
