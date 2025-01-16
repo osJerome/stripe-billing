@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import createSubscription from "../api/subscription";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -59,7 +59,7 @@ import {
 // import StripeCheckout from "@/components/stripe/stripe-checkout";
 
 const SubscriptionTiers = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -69,11 +69,11 @@ const SubscriptionTiers = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
 
-  useEffect(() => {
-    if (!localStorage.getItem("stripeId")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!localStorage.getItem("stripeId")) {
+  //     navigate("/");
+  //   }
+  // });
 
   const form = useForm<SubscriptionFormValues>({
     resolver: zodResolver(subscriptionSchema),
@@ -97,13 +97,25 @@ const SubscriptionTiers = () => {
       cvc: values.cvc,
     };
 
-    try {
-      const subscription = await createSubscription(subscriptionData);
-      console.log("Form submitted:", subscription);
-      setIsOpen(false); // Close the modal on success
-    } catch (error) {
-      console.error("Error creating subscription:", error);
-      // Handle error, e.g., show an error message to the user
+    console.log(subscriptionData);
+
+    // try {
+    //   const subscription = await createSubscription(subscriptionData);
+    //   console.log("Form submitted:", subscription);
+    //   setIsOpen(false); // Close the modal on success
+    // } catch (error) {
+    //   console.error("Error creating subscription:", error);
+    //   // Handle error, e.g., show an error message to the user
+    // }
+  };
+
+  const onSubscribe = async (tier: string) => {
+    const subscription = await createSubscription(tier);
+    if (typeof subscription!.url === "string") {
+      window.location.href = subscription!.url;
+      localStorage.setItem("sessionId", subscription!.session_id);
+    } else {
+      console.error("Subscription creation failed:", subscription);
     }
   };
 
@@ -151,8 +163,9 @@ const SubscriptionTiers = () => {
                     <Button
                       className="w-full mt-10"
                       onClick={() => {
-                        setIsOpen(!isOpen);
+                        // setIsOpen(!isOpen);
                         setTier(tier.name.toLowerCase());
+                        onSubscribe(tier.name.toLowerCase());
                       }}
                     >
                       Select {tier.name}
@@ -377,7 +390,6 @@ const SubscriptionTiers = () => {
               <Button type="submit" className="w-full">
                 Confirm
               </Button>
-              {/* <StripeCheckout /> */}
             </form>
           </Form>
         </DialogContent>
