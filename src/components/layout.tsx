@@ -4,10 +4,9 @@ import { Footer } from "@/components/ui/footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const title = "Offshorly";
+  const customerPortal = "https://billing.stripe.com/p/login/test_cN25mH32ad5q57q8ww";
   const navItems = [
-    { label: "", to: "/" },
-    // { label: "Tiers", to: "/subscription" },
-    // { label: "Manage", to: "/manage" },
+    { label: "Manage", to: customerPortal },
   ];
 
   return (

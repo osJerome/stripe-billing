@@ -1,8 +1,4 @@
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import createSubscription from "../api/subscription";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Card,
   CardHeader,
@@ -29,94 +25,16 @@ import {
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { faqs, featureList, tiers, addons, currency } from "../data";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  SubscriptionFormValues,
-  subscriptionSchema,
-} from "@/lib/subscription-schema";
-// import StripeCheckout from "@/components/stripe/stripe-checkout";
 
 const SubscriptionTiers = () => {
-  // const navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [cvc, setCvc] = useState("");
-  // const [email, setEmail] = useState("");
-  const [tier, setTier] = useState("starter");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-
-  // useEffect(() => {
-  //   if (!localStorage.getItem("stripeId")) {
-  //     navigate("/");
-  //   }
-  // });
-
-  const form = useForm<SubscriptionFormValues>({
-    resolver: zodResolver(subscriptionSchema),
-    defaultValues: {
-      // email: "", // Email address
-      tier: tier, // Subscription product
-      cardNumber: "", // Card number
-      expiryDate: "", // Card Expiry Date
-      cvc: "", // CVC
-    },
-  });
-
-  const onSubscriptionSubmit = async (values: SubscriptionFormValues) => {
-    const stripeId = localStorage.getItem("stripeId");
-
-    const subscriptionData = {
-      stripe_id: stripeId,
-      tier: values.tier,
-      cardNumber: values.cardNumber,
-      expiryDate: values.expiryDate,
-      cvc: values.cvc,
-    };
-
-    console.log(subscriptionData);
-
-    // try {
-    //   const subscription = await createSubscription(subscriptionData);
-    //   console.log("Form submitted:", subscription);
-    //   setIsOpen(false); // Close the modal on success
-    // } catch (error) {
-    //   console.error("Error creating subscription:", error);
-    //   // Handle error, e.g., show an error message to the user
-    // }
-  };
-
   const onSubscribe = async (tier: string) => {
     const subscription = await createSubscription(tier);
     if (typeof subscription!.url === "string") {
       window.location.href = subscription!.url;
-      localStorage.setItem("sessionId", subscription!.session_id);
-    } else {
-      console.error("Subscription creation failed:", subscription);
+      return;
     }
+
+    console.error("Subscription creation failed:", subscription);
   };
 
   return (
@@ -163,8 +81,6 @@ const SubscriptionTiers = () => {
                     <Button
                       className="w-full mt-10"
                       onClick={() => {
-                        // setIsOpen(!isOpen);
-                        setTier(tier.name.toLowerCase());
                         onSubscribe(tier.name.toLowerCase());
                       }}
                     >
@@ -258,142 +174,6 @@ const SubscriptionTiers = () => {
           </CardContent>
         </Card>
       </div>
-      {/* Modal */}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirm Subscription</DialogTitle>
-            <DialogDescription>
-              Complete your subscription by filling in your details.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubscriptionSubmit)}
-              className="space-y-4"
-            >
-              {/* <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                          field.onChange(e.target.value);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
-              <FormField
-                control={form.control}
-                name="tier"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subscription Tier</FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={(value) => {
-                          setTier(value);
-                          field.onChange(value);
-                        }}
-                        defaultValue={tier}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a plan" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {tiers.map((tier, index) => (
-                            <SelectItem
-                              value={tier.name.toLowerCase()}
-                              key={index}
-                            >
-                              {tier.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="cardNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Card Number</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="1234 5678 9012 3456"
-                        value={cardNumber}
-                        onChange={(e) => {
-                          setCardNumber(e.target.value);
-                          field.onChange(e.target.value);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="expiryDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Expiry Date</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="MM/YY"
-                          value={expiryDate}
-                          onChange={(e) => {
-                            setExpiryDate(e.target.value);
-                            field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cvc"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CVC</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="123"
-                          value={cvc}
-                          onChange={(e) => {
-                            setCvc(e.target.value);
-                            field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                Confirm
-              </Button>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };
