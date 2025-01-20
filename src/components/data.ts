@@ -13,7 +13,7 @@ export const tiers = [
     description: "For users exploring services.",
   },
   {
-    name: "Startups",
+    name: "Startup",
     price: 99.99,
     recurring: "month",
     features: ["Transcription Services", "Text Generation"],
