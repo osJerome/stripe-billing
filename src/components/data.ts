@@ -10,7 +10,7 @@ export const tiers = [
       "AI Consultation",
       "Custom Integrations",
     ],
-    description: "For users exploring services.",
+    description: "For users exploring services.", 
   },
   {
     name: "Startup",

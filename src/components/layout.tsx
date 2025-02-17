@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const title = "Offshorly";
   const customerPortal = "https://billing.stripe.com/p/login/test_cN25mH32ad5q57q8ww";
   const navItems = [
-    { label: "Manage", to: customerPortal },
+    { label: "", to: customerPortal },
   ];
 
   return (

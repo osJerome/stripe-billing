@@ -79,6 +79,7 @@ const SubscriptionTiers = () => {
                   </CardContent>
                   <CardFooter>
                     <Button
+                      disabled={!tier.isAvailable}
                       className="w-full mt-10"
                       onClick={() => {
                         onSubscribe(tier.name.toLowerCase());
