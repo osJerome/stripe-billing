@@ -1,6 +1,7 @@
 export const tiers = [
   {
     name: "Starter",
+    isAvailable: true,
     price: 0.00,
     recurring: "14-day free trial",
     features: [
@@ -14,6 +15,7 @@ export const tiers = [
   },
   {
     name: "Startup",
+    isAvailable: true,
     price: 99.99,
     recurring: "month",
     features: ["Transcription Services", "Text Generation"],
@@ -21,6 +23,7 @@ export const tiers = [
   },
   {
     name: "Advanced",
+    isAvailable: false,
     price: 249.99,
     recurring: "month",
     features: [
@@ -33,6 +36,7 @@ export const tiers = [
   },
   {
     name: "Enterprise",
+    isAvailable: false,
     price: 499.99,
     recurring: "month",
     features: [
