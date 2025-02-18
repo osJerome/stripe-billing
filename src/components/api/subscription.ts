@@ -5,10 +5,11 @@ interface SubscriptionResponse {
 }
 
 const createSubscription = async (
-  tier: string
+  tier: string,
+  fallbackUrl: string
 ): Promise<SubscriptionResponse | void> => {
   const response = await axiosInstance.get<SubscriptionResponse>(
-    `/subscribe?tier=${tier}`
+    `/subscribe?tier=${tier}&fallbackUrl=${fallbackUrl}`
   );
   return response.data;
 };

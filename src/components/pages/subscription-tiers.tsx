@@ -8,6 +8,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import {
   Table,
   TableBody,
@@ -27,14 +28,35 @@ import { Separator } from "@/components/ui/separator";
 import { faqs, featureList, tiers, addons, currency } from "../data";
 
 const SubscriptionTiers = () => {
-  const onSubscribe = async (tier: string) => {
-    const subscription = await createSubscription(tier);
-    if (typeof subscription!.url === "string") {
-      window.location.href = subscription!.url;
-      return;
-    }
+  const { toast } = useToast();
 
-    console.error("Subscription creation failed:", subscription);
+  // Requires a hook
+  const fallbackUrl = "";
+
+  const onSubscribe = async (tier: string) => {
+    try {
+      const subscription = await createSubscription(tier, fallbackUrl);
+      if (
+        subscription &&
+        subscription.url &&
+        typeof subscription.url === "string"
+      ) {
+        window.location.href = subscription.url;
+        return;
+      }
+
+      toast({
+        title: "Something went wrong",
+        description: "There was a problem with your request",
+        variant: "destructive",
+      });
+    } catch (error) {
+      toast({
+        title: "Subscription creation failed",
+        description: `There was a problem with your request\n\n${error}`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
