@@ -25,17 +25,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { faqs, featureList, tiers, addons, currency } from "../data";
+import { faqs, featureList, tiers, addons, currency } from "@/components/data";
+import { useUrlParam } from "@/components/hooks/useUrlParams"
+
 
 const SubscriptionTiers = () => {
   const { toast } = useToast();
-
-  // Requires a hook
-  const fallbackUrl = "";
+  const urlParam = useUrlParam("url")
 
   const onSubscribe = async (tier: string) => {
     try {
-      const subscription = await createSubscription(tier, fallbackUrl);
+      const subscription = await createSubscription(tier, urlParam || "");
       if (
         subscription &&
         subscription.url &&
